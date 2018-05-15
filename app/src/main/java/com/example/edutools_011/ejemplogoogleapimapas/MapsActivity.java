@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -118,6 +119,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        UiSettings configuracion = mMap.getUiSettings();
+        configuracion.setMapToolbarEnabled(true);
+        configuracion.setZoomControlsEnabled(true);
+        configuracion.setMyLocationButtonEnabled(true);
+
 
         // Add a marker in Sydney and move the camera
         LatLng yo = new LatLng(lat, lon);
