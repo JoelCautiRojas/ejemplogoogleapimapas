@@ -52,22 +52,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void cargarApp() {
-        actualizar.setEnabled(true);
-        actualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cliente = new GoogleApiClient.Builder(MapsActivity.this)
-                        .enableAutoManage(MapsActivity.this, MapsActivity.this)
-                        .addConnectionCallbacks(MapsActivity.this)
-                        .addApi(LocationServices.API)
-                        .build();
-            }
-        });
         cliente = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .build();
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cliente.clearDefaultAccountAndReconnect();
+            }
+        });
+
     }
 
     @Override
@@ -82,6 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        actualizar.setEnabled(true);
         Location miubicacion = LocationServices.FusedLocationApi.getLastLocation(cliente);
         if(miubicacion != null){
             double latitud = miubicacion.getLatitude();
